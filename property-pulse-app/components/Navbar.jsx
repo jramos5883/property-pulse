@@ -199,6 +199,9 @@ export default function Navbar() {
       </div>
 
       {/* <!-- Mobile menu, show/hide based on menu state. --> */}
+      {/* div below added to hide the open dropdown navbar button 
+          menu when switching to viewpoint larger than md */}
+      {/* <div className="block md:hidden"> */}
       {isMobileMenuOpen && (
         <div id="mobile-menu">
           <div className="space-y-1 px-2 pb-3 pt-2">
@@ -237,6 +240,7 @@ export default function Navbar() {
           </div>
         </div>
       )}
+      {/* </div> */}
     </nav>
   );
 }
