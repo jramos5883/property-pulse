@@ -33,7 +33,7 @@ export default function PropertyAddForm() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    //Check if nested property
+    // Check if nested property
     if (name.includes(".")) {
       const [outerKey, innerKey] = name.split(".");
 
@@ -45,7 +45,7 @@ export default function PropertyAddForm() {
         },
       }));
     } else {
-      //Not nested
+      // Not nested
       setFields((prevFields) => ({
         ...prevFields,
         [name]: value,
@@ -56,21 +56,21 @@ export default function PropertyAddForm() {
   const handleAmenitiesChange = (e) => {
     const { value, checked } = e.target;
 
-    //Clone the current array
+    // Clone the current array
     const updatedAmenities = [...fields.amenities];
 
     if (checked) {
-      //Add value to array
+      // Add value to array
       updatedAmenities.push(value);
     } else {
-      //Remove value from array
+      // Remove value from array
       const index = updatedAmenities.indexOf(value);
       if (index !== -1) {
         updatedAmenities.splice(index, 1);
       }
     }
 
-    //Update state with updated array
+    // Update state with updated array
     setFields((prevFields) => ({
       ...prevFields,
       amenities: updatedAmenities,
@@ -80,15 +80,15 @@ export default function PropertyAddForm() {
   const handleImageChange = (e) => {
     const { files } = e.target;
 
-    //Clone images array
+    // Clone images array
     const updatedImages = [...fields.images];
 
-    //Add new files to the array
+    // Add new files to the array
     for (const file of files) {
       updatedImages.push(file);
     }
 
-    //Update state with array of images
+    // Update state with array of images
     setFields((prevFields) => ({
       ...prevFields,
       images: updatedImages,
@@ -96,7 +96,7 @@ export default function PropertyAddForm() {
   };
 
   return (
-    <form>
+    <form action="/api/properties" method="POST" encType="multipart/form-data">
       <h2 className="text-3xl text-center font-semibold mb-6">Add Property</h2>
 
       <div className="mb-4">
@@ -490,7 +490,7 @@ export default function PropertyAddForm() {
         <input
           type="text"
           id="seller_name"
-          name="seller_info.name."
+          name="seller_info.name"
           className="border rounded w-full py-2 px-3"
           placeholder="Name"
           value={fields.seller_info.name}
@@ -545,6 +545,7 @@ export default function PropertyAddForm() {
           accept="image/*"
           multiple
           onChange={handleImageChange}
+          required
         />
       </div>
 
