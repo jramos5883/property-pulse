@@ -1,7 +1,7 @@
 import ConnectDB from "@/config/database";
 import Property from "@/app/models/Property";
 
-// GET /api/properties/serach
+// GET /api/properties/search
 
 export const GET = async (request) => {
   try {

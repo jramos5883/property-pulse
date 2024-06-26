@@ -15,7 +15,7 @@ export default function PropertySearchForm() {
     } else {
       const query = `?location=${location}&propertyType=${propertyType}`;
 
-      router.push(`/properties/serach-results${query}`);
+      router.push(`/properties/search-results${query}`);
     }
   };
 
