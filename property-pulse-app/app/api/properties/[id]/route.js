@@ -1,5 +1,5 @@
 import ConnectDB from "@/config/database";
-import Property from "@/app/models/Property";
+import Property from "@/models/Property";
 import { getSessionUser } from "@/utils/getSessionUser";
 
 // GET /api/properties/:id

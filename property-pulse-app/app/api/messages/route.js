@@ -1,8 +1,44 @@
 import ConnectDB from "@/config/database";
-import Message from "@/app/models/Message";
+import Message from "@/models/Message";
 import { getSessionUser } from "@/utils/getSessionUser";
 
 export const dynamic = "force-dynamic";
+
+// GET /api/messages
+export const GET = async () => {
+  try {
+    await ConnectDB();
+
+    const sessionUser = await getSessionUser();
+
+    if (!sessionUser || !sessionUser.user) {
+      return new Response(JSON.stringify("User ID is required"), {
+        status: 401,
+      });
+    }
+    const { userId } = sessionUser;
+
+    const readMessages = await Message.find({ recipient: userId, read: true })
+      .sort({ createdAt: -1 }) // Sort read messages in ascending order
+      .populate("sender", "username")
+      .populate("property", "name");
+
+    const unreadMessages = await Message.find({
+      recipient: userId,
+      read: false,
+    })
+      .sort({ createdAt: -1 }) // Sort read messages in ascending order
+      .populate("sender", "username")
+      .populate("property", "name");
+
+    const messages = [...unreadMessages, ...readMessages];
+
+    return new Response(JSON.stringify(messages), { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return new Response("Something went wrong", { status: 500 });
+  }
+};
 
 // POST /api/messages
 export const POST = async (request) => {

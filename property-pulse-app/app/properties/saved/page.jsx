@@ -35,7 +35,8 @@ export default function SavedPropertiesPage() {
   return loading ? (
     <Spinner loading={loading} />
   ) : (
-    <section className="px-4 py-6">
+    // Used min-h-screen to ensure that the footer is at bottom of screen
+    <section className="px-4 py-6 min-h-screen">
       <h1 className="text-2xl mb-4 font-bold text-center">Saved Properties</h1>
       <div className="container-xl lg:container m-auto px-4 py-6">
         {properties.length === 0 ? (
